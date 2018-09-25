@@ -1,47 +1,111 @@
 package edu.depaul.cdm.se.shoppinglist.service;
 
 import edu.depaul.cdm.se.shoppinglist.model.Item;
-import edu.depaul.cdm.se.shoppinglist.model.ItemId;
 import edu.depaul.cdm.se.shoppinglist.model.ShoppingList;
+import edu.depaul.cdm.se.shoppinglist.repository.ItemRepository;
+import edu.depaul.cdm.se.shoppinglist.repository.model.SavedItem;
+import edu.depaul.cdm.se.shoppinglist.repository.model.SavedShoppingList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Service
 public class ShoppingListService {
 
     @Autowired
-    private CrudRepository<ShoppingList, BigInteger> shoppingListRepository;
+    private CrudRepository<SavedShoppingList, BigInteger> shoppingListRepository;
 
     @Autowired
-    private CrudRepository<Item, BigInteger> itemRepository;
+    private ItemRepository itemRepository;
 
     public List<ShoppingList> findAllShoppingLists() {
         return StreamSupport.stream(shoppingListRepository.findAll().spliterator(), false)
+                .map(convertToShoppingList())
+                .collect(Collectors.toList());
+    }
+
+    private Function<SavedShoppingList, ShoppingList> convertToShoppingList() {
+        return ssl -> ShoppingList.newBuilder()
+                .withId(ssl.getId())
+                .withStatus(ssl.getStatus())
+                .withItems(findItemsByShoppingList(ssl.getId()))
+                .build();
+    }
+
+    private List<Item> findItemsByShoppingList(BigInteger shoppingListId) {
+        return StreamSupport.stream(itemRepository.findAllByShoppingListId(shoppingListId).spliterator(), false)
+                .map(convertToItem())
                 .collect(Collectors.toList());
     }
 
     public Optional<ShoppingList> findShoppingListById(BigInteger id) {
-        return shoppingListRepository.findById(id);
+        return shoppingListRepository.findById(id)
+                .map(convertToShoppingList());
     }
 
     public ShoppingList createShoppingList(ShoppingList shoppingList) {
-        return shoppingListRepository.save(shoppingList);
+        return convertToShoppingList().apply(
+                shoppingListRepository.save(convertToSavedShoppingList().apply(shoppingList))
+        );
     }
 
-    public Optional<Item> addItemToList(BigInteger id, Item item) {
-        return findShoppingListById(id).map(
-                shoppingList -> {
-                    Item save = itemRepository.save(item);
-                    shoppingList.getItems().add(new ItemId(save.getId()));
-                    shoppingListRepository.save(shoppingList);
-                    return Optional.of(save);
-                }).orElse(Optional.empty());
+    private Function<ShoppingList, SavedShoppingList> convertToSavedShoppingList() {
+        return shoppingList -> SavedShoppingList.newBuilder()
+                .withId(shoppingList.getId())
+                .withStatus(shoppingList.getStatus())
+                .build();
+    }
+
+    private Function<SavedItem, Item> convertToItem() {
+        return savedItem -> {
+            savedItem.getItem().setId(savedItem.getId());
+            return savedItem.getItem();
+        };
+    }
+
+    public Optional<Item> addItemToList(BigInteger shoppingListId, Item item) {
+        return findShoppingListById(shoppingListId).map(
+                shoppingList -> itemRepository.save(new SavedItem(item, shoppingList.getId())))
+                .map(convertToItem())
+                .map(Optional::of)
+                .orElse(Optional.empty());
+    }
+
+    public Optional<Item> updateItem(BigInteger shoppingListId, BigInteger itemId, Item item) {
+        return itemRepository.findById(itemId).map(existingItem ->
+                itemRepository.save(new SavedItem(existingItem.getId(), item, existingItem.getShoppingListId())))
+                .map(convertToItem())
+                .map(Optional::of)
+                .orElse(Optional.empty());
+    }
+
+    public boolean deleteShoppingList(BigInteger shoppingListId) {
+        return shoppingListRepository.findById(shoppingListId)
+                .map(sl -> {
+                    shoppingListRepository.deleteById(sl.getId());
+                    return sl.getId();
+                }).map(slid -> {
+                    itemRepository.deleteAllByShoppingListId(slid);
+                    return true;
+                }).orElse(false);
+    }
+
+    public boolean deleteItem(BigInteger itemId) {
+        return itemRepository.findById(itemId)
+                .map(item -> {
+                    itemRepository.deleteById(itemId);
+                    return true;
+                })
+                .orElse(false);
     }
 }

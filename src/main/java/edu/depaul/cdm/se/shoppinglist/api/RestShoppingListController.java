@@ -1,4 +1,4 @@
-package edu.depaul.cdm.se.shoppinglist.controller;
+package edu.depaul.cdm.se.shoppinglist.api;
 
 import edu.depaul.cdm.se.shoppinglist.model.Item;
 import edu.depaul.cdm.se.shoppinglist.model.ShoppingList;
@@ -9,13 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.xml.ws.Response;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-public class ShoppingListController {
+public class RestShoppingListController {
 
     @Autowired
     private ShoppingListService shoppingListService;
@@ -34,7 +32,7 @@ public class ShoppingListController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/lists")
+    @PostMapping(value = "/lists")
     public ResponseEntity createShoppingList(UriComponentsBuilder builder, @RequestBody ShoppingList shoppingList) {
         return ResponseEntity.created(
                 builder.fromPath("/lists/{id}").buildAndExpand(
@@ -43,7 +41,7 @@ public class ShoppingListController {
                 .build();
     }
 
-    @PostMapping("/lists/{id}/items")
+    @PostMapping(value = "/lists/{id}/items")
     public ResponseEntity addItemToList(@PathVariable BigInteger id, @RequestBody Item item, UriComponentsBuilder builder) {
         return shoppingListService.addItemToList(id, item)
                 .map(savedItem -> ResponseEntity.created(
@@ -52,4 +50,28 @@ public class ShoppingListController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PutMapping(value = "/lists/{id}/items/{itemId}")
+    public ResponseEntity addItemToList(@PathVariable BigInteger id, @PathVariable BigInteger itemId, @RequestBody Item item, UriComponentsBuilder builder) {
+        return shoppingListService.updateItem(id, itemId, item)
+                .map(responseItem -> ResponseEntity.noContent().build())
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/lists/{shoppingListId}")
+    public ResponseEntity deleteShoppingList(@PathVariable BigInteger shoppingListId) {
+        if (shoppingListService.deleteShoppingList(shoppingListId)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/lists/{shoppingListId}/items/{itemId}")
+    public ResponseEntity deleteItem(@PathVariable BigInteger shoppingListId, @PathVariable BigInteger itemId) {
+        if (shoppingListService.deleteItem(itemId)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

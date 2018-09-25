@@ -1,33 +1,29 @@
-package edu.depaul.cdm.se.shoppinglist.model;
+package edu.depaul.cdm.se.shoppinglist.repository.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import edu.depaul.cdm.se.shoppinglist.model.Status;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.List;
 import java.util.Objects;
 
-public class ShoppingList implements Serializable {
-    private static final long serialVersionUID = 6614797054258250359L;
+public class SavedShoppingList implements Serializable {
+    private static final long serialVersionUID = 2375721391469703766L;
 
     @Id
     private BigInteger id;
-    private List<Item> items;
     private Status status;
 
-    public ShoppingList() {
+    public SavedShoppingList() {
     }
 
-    public ShoppingList(BigInteger id, List<Item> items, Status status) {
+    public SavedShoppingList(BigInteger id, Status status) {
         this.id = id;
-        this.items = items;
         this.status = status;
     }
 
-    private ShoppingList(Builder builder) {
+    private SavedShoppingList(Builder builder) {
         id = builder.id;
-        items = builder.items;
         status = builder.status;
     }
 
@@ -35,10 +31,9 @@ public class ShoppingList implements Serializable {
         return new Builder();
     }
 
-    public static Builder newBuilder(ShoppingList copy) {
+    public static Builder newBuilder(SavedShoppingList copy) {
         Builder builder = new Builder();
         builder.id = copy.getId();
-        builder.items = copy.getItems();
         builder.status = copy.getStatus();
         return builder;
     }
@@ -47,19 +42,14 @@ public class ShoppingList implements Serializable {
         return id;
     }
 
-    public List<Item> getItems() {
-        return items;
-    }
-
     public Status getStatus() {
         return status;
     }
 
     @Override
     public String toString() {
-        return "ShoppingList{" +
+        return "SavedShoppingList{" +
                 "id=" + id +
-                ", items=" + items +
                 ", status=" + status +
                 '}';
     }
@@ -68,21 +58,20 @@ public class ShoppingList implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ShoppingList that = (ShoppingList) o;
+        SavedShoppingList that = (SavedShoppingList) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(items, that.items) &&
                 status == that.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, items, status);
+
+        return Objects.hash(id, status);
     }
 
 
     public static final class Builder {
         private BigInteger id;
-        private List<Item> items;
         private Status status;
 
         private Builder() {
@@ -93,18 +82,13 @@ public class ShoppingList implements Serializable {
             return this;
         }
 
-        public Builder withItems(List<Item> items) {
-            this.items = items;
-            return this;
-        }
-
         public Builder withStatus(Status status) {
             this.status = status;
             return this;
         }
 
-        public ShoppingList build() {
-            return new ShoppingList(this);
+        public SavedShoppingList build() {
+            return new SavedShoppingList(this);
         }
     }
 }
