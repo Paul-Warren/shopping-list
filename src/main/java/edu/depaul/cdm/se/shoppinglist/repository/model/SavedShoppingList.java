@@ -13,19 +13,23 @@ public class SavedShoppingList implements Serializable {
     @Id
     private BigInteger id;
     private Status status;
+    private String title;
 
     public SavedShoppingList() {
     }
 
-    public SavedShoppingList(BigInteger id, Status status) {
+    public SavedShoppingList(BigInteger id, Status status, String title) {
         this.id = id;
         this.status = status;
+        this.title = title;
     }
 
     private SavedShoppingList(Builder builder) {
         id = builder.id;
         status = builder.status;
+        title = builder.title;
     }
+
 
     public static Builder newBuilder() {
         return new Builder();
@@ -35,6 +39,7 @@ public class SavedShoppingList implements Serializable {
         Builder builder = new Builder();
         builder.id = copy.getId();
         builder.status = copy.getStatus();
+        builder.title = copy.getTitle();
         return builder;
     }
 
@@ -46,11 +51,16 @@ public class SavedShoppingList implements Serializable {
         return status;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     @Override
     public String toString() {
         return "SavedShoppingList{" +
                 "id=" + id +
                 ", status=" + status +
+                ", title='" + title + '\'' +
                 '}';
     }
 
@@ -60,19 +70,20 @@ public class SavedShoppingList implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         SavedShoppingList that = (SavedShoppingList) o;
         return Objects.equals(id, that.id) &&
-                status == that.status;
+                status == that.status &&
+                Objects.equals(title, that.title);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, status);
+        return Objects.hash(id, status, title);
     }
-
 
     public static final class Builder {
         private BigInteger id;
         private Status status;
+        private String title;
 
         private Builder() {
         }
@@ -84,6 +95,11 @@ public class SavedShoppingList implements Serializable {
 
         public Builder withStatus(Status status) {
             this.status = status;
+            return this;
+        }
+
+        public Builder withTitle(String title) {
+            this.title = title;
             return this;
         }
 

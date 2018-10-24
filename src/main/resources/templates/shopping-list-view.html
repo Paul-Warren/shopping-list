@@ -1,0 +1,52 @@
+<!dctype html>
+<html class="no-js" lang="" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Shopping List!</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="apple-touch-icon" href="img/icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+<br/>
+<div th:class="detailCard" th:align="center">
+    <div th:class="container">
+        <table th:class="table">
+            <h1 th:text="${shoppingList.title}"/>
+            <thead>
+            <td th:text="'Item'"/>
+            <td th:text="'Quantity'"/>
+            <td th:text="'Store'"/>
+            <td th:text="'Status'"/>
+            </thead>
+            <tbody th:each="item,iterStat : ${shoppingList.items}" th:class="${iterStat.odd}? 'oddRow' : 'evenRow'">
+            <td class="tablevalue" th:text="${item.name}"/>
+            <td class="tablevalue" th:text="${item.quantity}"/>
+            <td class="tablevalue" th:text="${item.store}"/>
+            <td class="tablevalue" th:text="${item.status}"/>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+<script src="/js/plugins.js"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

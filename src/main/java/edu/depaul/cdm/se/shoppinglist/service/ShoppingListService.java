@@ -39,6 +39,7 @@ public class ShoppingListService {
                 .withId(ssl.getId())
                 .withStatus(ssl.getStatus())
                 .withItems(findItemsByShoppingList(ssl.getId()))
+                .withTitle(ssl.getTitle())
                 .build();
     }
 
@@ -63,6 +64,7 @@ public class ShoppingListService {
         return shoppingList -> SavedShoppingList.newBuilder()
                 .withId(shoppingList.getId())
                 .withStatus(shoppingList.getStatus())
+                .withTitle(shoppingList.getTitle())
                 .build();
     }
 
