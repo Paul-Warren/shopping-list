@@ -13,13 +13,14 @@
     <link rel="apple-touch-icon" href="img/icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
 <!--[if lte IE 9]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
 <![endif]-->
 <h1 align="center">Welcome! Here are all available shopping lists!</h1>
 <br/>
@@ -27,25 +28,36 @@
 <br/>
 <div text-align="center">
     <div class="card">
-        <a class="container" href="/lists/28414307965783093759098362210/show">
+        <a class="container" href="/lists/28436889178606043810624895152/show">
             <h1>My first shopping list</h1>
             <h4>INCOMPLETE</h4>
             <h4>Number of Items: 5</h4>
         </a>
     </div>
     <div class="card">
-        <a class="container" href="/lists/28414307984229837832807913832/show">
+        <a class="container" href="/lists/28436889178606043810624895158/show">
             <h1>My second shopping list</h1>
             <h4>INCOMPLETE</h4>
             <h4>Number of Items: 6</h4>
         </a>
     </div>
     <div class="card">
-        <a class="container" href="/lists/28414307984229837832807913839/show">
+        <a class="container" href="/lists/28436889178606043810624895165/show">
             <h1>My third shopping list</h1>
             <h4>INCOMPLETE</h4>
             <h4>Number of Items: 0</h4>
         </a>
+    </div>
+    <div class="card">
+        <div class="container">
+            <form method="POST" action="/lists">
+                <h1>Create a new list</h1>
+                <label>Title:</label> <input type="text" id="title" name="title" value=""/>
+                <button type="submit" name="submit" value="Create">
+                    Create New Shopping List
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 <script src="js/vendor/modernizr-3.6.0.min.js"></script>

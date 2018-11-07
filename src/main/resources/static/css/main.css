@@ -103,6 +103,8 @@ textarea {
     float: left;
     padding: 5px;
     margin: 5px;
+    width: 300px;
+    height: 300px;
 }
 
 .card:hover {
@@ -125,10 +127,14 @@ textarea {
 /* Add some padding inside the card container */
 .container {
     padding: 2px 16px;
+    width: 700px;
+    /*text-align: center;*/
 }
 
 .td {
     align: center;
+    width: 90px;
+    text-align: center;
 }
 
 .oddRow {
@@ -147,6 +153,10 @@ a:link {
 a:visited {
     color: black;
     text-decoration: none;
+}
+.label{
+    display: inline-block;
+    padding: 5px;
 }
 
 /* ==========================================================================

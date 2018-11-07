@@ -5,6 +5,7 @@ import edu.depaul.cdm.se.shoppinglist.model.ShoppingList;
 import edu.depaul.cdm.se.shoppinglist.service.ShoppingListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -32,7 +33,7 @@ public class RestShoppingListController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping(value = "/lists")
+    @PostMapping(value = "/lists", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity createShoppingList(UriComponentsBuilder builder, @RequestBody ShoppingList shoppingList) {
         return ResponseEntity.created(
                 builder.fromPath("/lists/{id}").buildAndExpand(
@@ -41,7 +42,7 @@ public class RestShoppingListController {
                 .build();
     }
 
-    @PostMapping(value = "/lists/{id}/items")
+    @PostMapping(value = "/lists/{id}/items", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity addItemToList(@PathVariable BigInteger id, @RequestBody Item item, UriComponentsBuilder builder) {
         return shoppingListService.addItemToList(id, item)
                 .map(savedItem -> ResponseEntity.created(
@@ -50,7 +51,7 @@ public class RestShoppingListController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping(value = "/lists/{id}/items/{itemId}")
+    @PutMapping(value = "/lists/{id}/items/{itemId}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity addItemToList(@PathVariable BigInteger id, @PathVariable BigInteger itemId, @RequestBody Item item, UriComponentsBuilder builder) {
         return shoppingListService.updateItem(id, itemId, item)
                 .map(responseItem -> ResponseEntity.noContent().build())

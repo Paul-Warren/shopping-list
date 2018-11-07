@@ -61,6 +61,22 @@ public class ShoppingList implements Serializable {
         return status;
     }
 
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public static final class Builder {
         private BigInteger id;
         private String title;

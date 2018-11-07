@@ -157,7 +157,7 @@ textarea {
   font-family: inherit; /* 1 */
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
+  margin: 5px; /* 2 */
 }
 
 /**
@@ -178,6 +178,7 @@ input { /* 1 */
 button,
 select { /* 1 */
   text-transform: none;
+  margin: 5px;
 }
 
 /**

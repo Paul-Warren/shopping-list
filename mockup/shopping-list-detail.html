@@ -13,63 +13,121 @@
     <link rel="apple-touch-icon" href="img/icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 
 <body>
 <!--[if lte IE 9]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
 <![endif]-->
 <br/>
 <div class="detailCard" align="center">
     <div class="container">
+        <h1>My first shopping list</h1>
         <table class="table">
-            <h1>My second shopping list</h1>
             <thead>
+            <td>Update</td>
             <td>Item</td>
             <td>Quantity</td>
             <td>Store</td>
             <td>Status</td>
             </thead>
             <tbody class="oddRow">
-            <td class="tablevalue">Wig</td>
-            <td class="tablevalue">2</td>
-            <td class="tablevalue">WalMart</td>
-            <td class="tablevalue">INCOMPLETE</td>
+            <form method="POST" action="/lists/28436889178606043810624895152/items/28436889178606043810624895153">
+                <td>
+                    <button type="submit" name="submit"
+                            value="Mark Complete"/>
+                </td>
+            </form>
+            <td>Shoes</td>
+            <td>2</td>
+            <td>WalMart</td>
+            <td>INCOMPLETE</td>
             </tbody>
             <tbody class="evenRow">
-            <td class="tablevalue">Keyboard</td>
-            <td class="tablevalue">2</td>
-            <td class="tablevalue">Meijer</td>
-            <td class="tablevalue">INCOMPLETE</td>
+            <form method="POST" action="/lists/28436889178606043810624895152/items/28436889178606043810624895154">
+                <td>
+                    <button type="submit" name="submit"
+                            value="Mark Complete"/>
+                </td>
+            </form>
+            <td>Hat</td>
+            <td>2</td>
+            <td>Meijer</td>
+            <td>INCOMPLETE</td>
             </tbody>
             <tbody class="oddRow">
-            <td class="tablevalue">Tv</td>
-            <td class="tablevalue">2</td>
-            <td class="tablevalue">WalMart</td>
-            <td class="tablevalue">INCOMPLETE</td>
+            <form method="POST" action="/lists/28436889178606043810624895152/items/28436889178606043810624895155">
+                <td>
+                    <button type="submit" name="submit"
+                            value="Mark Complete"/>
+                </td>
+            </form>
+            <td>Milk</td>
+            <td>2</td>
+            <td>WalMart</td>
+            <td>INCOMPLETE</td>
             </tbody>
             <tbody class="evenRow">
-            <td class="tablevalue">Butter</td>
-            <td class="tablevalue">3</td>
-            <td class="tablevalue">WalMart</td>
-            <td class="tablevalue">INCOMPLETE</td>
+            <form method="POST" action="/lists/28436889178606043810624895152/items/28436889178606043810624895156">
+                <td>
+                    <button type="submit" name="submit"
+                            value="Mark Complete"/>
+                </td>
+            </form>
+            <td>Cheese</td>
+            <td>3</td>
+            <td>WalMart</td>
+            <td>INCOMPLETE</td>
             </tbody>
             <tbody class="oddRow">
-            <td class="tablevalue">Dog Food</td>
-            <td class="tablevalue">1</td>
-            <td class="tablevalue">WalMart</td>
-            <td class="tablevalue">INCOMPLETE</td>
+            <form method="POST" action="/lists/28436889178606043810624895152/items/28436889178606043810624895157">
+                <td>
+                    <button type="submit" name="submit"
+                            value="Mark Complete"/>
+                </td>
+            </form>
+            <td>Meat</td>
+            <td>3</td>
+            <td>WalMart</td>
+            <td>INCOMPLETE</td>
             </tbody>
-            <tbody class="evenRow">
-            <td class="tablevalue">Ice Cream</td>
-            <td class="tablevalue">1</td>
-            <td class="tablevalue">WalMart</td>
-            <td class="tablevalue">INCOMPLETE</td>
+            <tbody>
+            <form method="POST" action="/lists/28436889178606043810624895152/items">
+                <tr>
+                    <td/>
+                    <td><input type="text" id="name" name="name" value=""/></td>
+                    <td><input type="number" id="quantity" name="quantity" value=""/></td>
+                    <td><input type="text" id="store" name="store" value=""/></td>
+                    <td>
+                        <button type="submit" name="submit" value="Create">
+                            Add an Item
+                        </button>
+                    </td>
+                </tr>
+            </form>
             </tbody>
         </table>
+
+        <!--<form method="POST" th:action="@{/lists/__${shoppingList.id}__/items}" th:object="${newItem}">-->
+        <!--<label th:text="'name:'"/> <input type="text" th:field="*{name}"/>-->
+        <!--<br/>-->
+        <!--<label th:text="'store:'"/> <input type="text" th:field="*{store}"/>-->
+        <!--<br/>-->
+        <!--<label th:text="'quantity:'"/> <input type="number" th:field="*{quantity}"/>-->
+        <!--<br/>-->
+        <!--<button th:type="'submit'" th:name="'submit'" th:value="'Create'">-->
+        <!--Add an Item-->
+        <!--</button>-->
+        <!--</form>-->
     </div>
+    <form method="GET" action="/">
+        <button align="center">
+            Return
+        </button>
+    </form>
 </div>
 
 <script src="/js/vendor/modernizr-3.6.0.min.js"></script>

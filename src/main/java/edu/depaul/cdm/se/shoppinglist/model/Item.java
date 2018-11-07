@@ -35,8 +35,28 @@ public class Item implements Serializable {
         status = builder.status;
     }
 
+    public boolean isComplete() {
+        return status.equals(Status.COMPLETE);
+    }
+
     public void setId(BigInteger id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStore(String store) {
+        this.store = store;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public static Builder newBuilder() {

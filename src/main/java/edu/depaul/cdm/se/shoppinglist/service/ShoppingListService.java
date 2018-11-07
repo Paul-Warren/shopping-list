@@ -2,6 +2,7 @@ package edu.depaul.cdm.se.shoppinglist.service;
 
 import edu.depaul.cdm.se.shoppinglist.model.Item;
 import edu.depaul.cdm.se.shoppinglist.model.ShoppingList;
+import edu.depaul.cdm.se.shoppinglist.model.Status;
 import edu.depaul.cdm.se.shoppinglist.repository.ItemRepository;
 import edu.depaul.cdm.se.shoppinglist.repository.model.SavedItem;
 import edu.depaul.cdm.se.shoppinglist.repository.model.SavedShoppingList;
@@ -109,5 +110,31 @@ public class ShoppingListService {
                     return true;
                 })
                 .orElse(false);
+    }
+
+    public boolean toggleItemCompleted(BigInteger shoppingListId, BigInteger itemId) {
+        boolean status = itemRepository.findById(itemId)
+                .map(item -> {
+                    if (item.getItem().isComplete()) {
+                        item.getItem().setStatus(Status.INCOMPLETE);
+                    } else {
+                        item.getItem().setStatus(Status.COMPLETE);
+                    }
+                    itemRepository.save(item);
+                    return true;
+                })
+                .orElse(false);
+        shoppingListRepository.findById(shoppingListId)
+                .map(savedShoppingList -> {
+                    if (itemRepository.findAllByShoppingListId(shoppingListId)
+                            .stream().allMatch(savedItem -> savedItem.getItem().isComplete())) {
+                        savedShoppingList.setStatus(Status.COMPLETE);
+                    } else {
+                        savedShoppingList.setStatus(Status.INCOMPLETE);
+                    }
+                    return shoppingListRepository.save(savedShoppingList);
+                });
+
+        return status;
     }
 }

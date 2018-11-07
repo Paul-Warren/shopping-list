@@ -55,6 +55,18 @@ public class SavedShoppingList implements Serializable {
         return title;
     }
 
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return "SavedShoppingList{" +

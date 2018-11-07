@@ -18,27 +18,67 @@
 
 <body>
 <!--[if lte IE 9]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
 <![endif]-->
 <br/>
 <div th:class="detailCard" th:align="center">
     <div th:class="container">
-        <table th:class="table">
-            <h1 th:text="${shoppingList.title}"/>
+        <h1 th:text="${shoppingList.title}"/>
+        <table th:if="${not shoppingList.items.isEmpty()}" th:class="table">
             <thead>
+            <td th:text="'Update'"/>
             <td th:text="'Item'"/>
             <td th:text="'Quantity'"/>
             <td th:text="'Store'"/>
             <td th:text="'Status'"/>
             </thead>
             <tbody th:each="item,iterStat : ${shoppingList.items}" th:class="${iterStat.odd}? 'oddRow' : 'evenRow'">
-            <td class="tablevalue" th:text="${item.name}"/>
-            <td class="tablevalue" th:text="${item.quantity}"/>
-            <td class="tablevalue" th:text="${item.store}"/>
-            <td class="tablevalue" th:text="${item.status}"/>
+            <form method="POST" th:action="@{/lists/__${shoppingList.id}__/items/__${item.id}__}" th:object="${item}">
+                <td>
+                    <button th:type="'submit'" th:name="'submit'"
+                            th:value="(${item.isComplete()} ? 'Mark Incomplete' : 'Mark Complete')"/>
+                </td>
+            </form>
+            <td th:text="${item.name}"/>
+            <td th:text="${item.quantity}"/>
+            <td th:text="${item.store}"/>
+            <td th:text="${item.status}"/>
+            </tbody>
+            <tbody>
+            <form method="POST" th:action="@{/lists/__${shoppingList.id}__/items}" th:object="${newItem}">
+                <tr>
+                    <td/>
+                    <td><input type="text" th:field="*{name}"/></td>
+                    <td><input type="number" th:field="*{quantity}"/></td>
+                    <td><input type="text" th:field="*{store}"/></td>
+                    <td>
+                        <button th:type="'submit'" th:name="'submit'" th:value="'Create'">
+                            Add an Item
+                        </button>
+                    </td>
+                </tr>
+            </form>
             </tbody>
         </table>
+        <h2 th:if="${shoppingList.items.isEmpty()}">Looks like there are no items here. </h2>
+        <!--<form method="POST" th:action="@{/lists/__${shoppingList.id}__/items}" th:object="${newItem}">-->
+            <!--<label th:text="'name:'"/> <input type="text" th:field="*{name}"/>-->
+            <!--<br/>-->
+            <!--<label th:text="'store:'"/> <input type="text" th:field="*{store}"/>-->
+            <!--<br/>-->
+            <!--<label th:text="'quantity:'"/> <input type="number" th:field="*{quantity}"/>-->
+            <!--<br/>-->
+            <!--<button th:type="'submit'" th:name="'submit'" th:value="'Create'">-->
+                <!--Add an Item-->
+            <!--</button>-->
+        <!--</form>-->
     </div>
+    <form method="GET" th:action="@{/}">
+        <button th:align="center">
+            Return
+        </button>
+    </form>
 </div>
 
 <script src="/js/vendor/modernizr-3.6.0.min.js"></script>

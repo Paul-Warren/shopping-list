@@ -18,7 +18,8 @@
 
 <body>
 <!--[if lte IE 9]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
 <![endif]-->
 <h1 th:text="'Welcome! Here are all available shopping lists!'" th:align="center"/>
 <br/>
@@ -31,6 +32,17 @@
             <h4 th:text="${list.status}"/>
             <h4 th:text="'Number of Items: ' +${list.items.size()}"/>
         </a>
+    </div>
+    <div th:class="card">
+        <div th:class="container">
+            <form method="POST" th:action="@{/lists}" th:object="${newShoppingList}">
+                <h1 th:text="'Create a new list'"/>
+                <label th:text="'Title:'"/> <input type="text" th:field="*{title}"/>
+                <button th:type="'submit'" th:name="'submit'" th:value="'Create'">
+                    Create New Shopping List
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 <script src="js/vendor/modernizr-3.6.0.min.js"></script>
