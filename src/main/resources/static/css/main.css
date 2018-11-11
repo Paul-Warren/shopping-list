@@ -110,6 +110,7 @@ textarea {
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
+
 .detailCard {
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -154,9 +155,17 @@ a:visited {
     color: black;
     text-decoration: none;
 }
-.label{
+
+.label {
     display: inline-block;
     padding: 5px;
+}
+
+div.deleteButton input {
+    background: url(/img/delete.jpg) no-repeat;
+    cursor: pointer;
+    border: none;
+    width: 100%;
 }
 
 /* ==========================================================================

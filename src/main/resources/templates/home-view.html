@@ -38,6 +38,7 @@
             <form method="POST" th:action="@{/lists}" th:object="${newShoppingList}">
                 <h1 th:text="'Create a new list'"/>
                 <label th:text="'Title:'"/> <input type="text" th:field="*{title}"/>
+                <br/>
                 <button th:type="'submit'" th:name="'submit'" th:value="'Create'">
                     Create New Shopping List
                 </button>
