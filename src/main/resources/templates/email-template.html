@@ -1,0 +1,42 @@
+<!dctype html>
+<html class="no-js" lang="" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Shopping List!</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="http://localhost:8080/css/normalize.css">
+    <link rel="stylesheet" href="http://localhost:8080/css/main.css">
+</head>
+<body>
+<div th:class="detailCard" th:align="center">
+    <div th:class="container">
+        <h1 th:text="${shoppingList.title}"/>
+        <table th:class="table" th:id="itemTable">
+            <thead>
+            <td th:text="'Item'" th:onclick="'sortTable(itemTable, 1)'"/>
+            <td th:text="'Quantity'" th:onclick="'sortTable(itemTable, 2)'"/>
+            <td th:text="'Store'" th:onclick="'sortTable(itemTable, 3)'"/>
+            <td th:text="'Status'" th:onclick="'sortTable(itemTable, 4)'"/>
+            </thead>
+            <tbody th:each="item,iterStat : ${shoppingList.items}" th:class="${iterStat.odd}? 'oddRow' : 'evenRow'">
+            <td th:text="${item.name}"/>
+            <td th:text="${item.quantity}"/>
+            <td th:text="${item.store}"/>
+            <td th:text="${item.status}"/>
+            </tbody>
+        </table>
+        <h2 th:if="${shoppingList.items.isEmpty()}">Looks like there are no items here. </h2>
+        <a th:href="'http://localhost:8080/lists/'+${shoppingList.id} + '/show'"><h2>Click here to update.</h2></a>
+    </div>
+</div>
+<script src="http://localhost:8080/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+<script src="http://localhost:8080/js/plugins.js"></script>
+<script src="http://localhost:8080/js/main.js"></script>
+</body>
+</html>

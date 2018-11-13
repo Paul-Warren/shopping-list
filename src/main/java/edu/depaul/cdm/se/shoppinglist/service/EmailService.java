@@ -19,7 +19,7 @@ public class EmailService {
 
     public boolean shareToEmail(BigInteger shoppingListId, EmailRequest emailRequest) {
         Optional<ShoppingList> shoppingList = shoppingListService.findShoppingListById(shoppingListId);
-        return shoppingList.map(sl -> emailClient.sendEmail(shoppingList, emailRequest))
+        return shoppingList.map(sl -> emailClient.sendEmail(sl, emailRequest))
                 .orElse(false);
     }
 }
