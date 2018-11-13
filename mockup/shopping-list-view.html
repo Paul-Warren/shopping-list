@@ -13,8 +13,8 @@
     <link rel="apple-touch-icon" href="img/icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="/css/normalize.css">
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
@@ -26,28 +26,17 @@
 <div class="detailCard" align="center">
     <div class="container">
         <h1>My first shopping list</h1>
-        <table class="table">
+        <table class="table" id="itemTable">
             <thead>
-            <td>Update</td>
-            <td>Item</td>
-            <td>Quantity</td>
-            <td>Store</td>
-            <td>Status</td>
+            <td onclick="sortTable(itemTable, 0)">Update</td>
+            <td onclick="sortTable(itemTable, 1)">Item</td>
+            <td onclick="sortTable(itemTable, 2)">Quantity</td>
+            <td onclick="sortTable(itemTable, 3)">Store</td>
+            <td onclick="sortTable(itemTable, 4)">Status</td>
+            <td>Delete</td>
             </thead>
             <tbody class="oddRow">
-            <form method="POST" action="/lists/28436889178606043810624895152/items/28436889178606043810624895153">
-                <td>
-                    <button type="submit" name="submit"
-                            value="Mark Complete"/>
-                </td>
-            </form>
-            <td>Shoes</td>
-            <td>2</td>
-            <td>WalMart</td>
-            <td>INCOMPLETE</td>
-            </tbody>
-            <tbody class="evenRow">
-            <form method="POST" action="/lists/28436889178606043810624895152/items/28436889178606043810624895154">
+            <form method="POST" action="/lists/28446230757378923494301852360/items/28446230775825667568011403978">
                 <td>
                     <button type="submit" name="submit"
                             value="Mark Complete"/>
@@ -57,9 +46,14 @@
             <td>2</td>
             <td>Meijer</td>
             <td>INCOMPLETE</td>
+            <form method="POST" action="/lists/28446230757378923494301852360/items/28446230775825667568011403978/delete">
+                <td>
+                    <div class="deleteButton"><INPUT type="submit" name="" value=""></div>
+                </td>
+            </form>
             </tbody>
-            <tbody class="oddRow">
-            <form method="POST" action="/lists/28436889178606043810624895152/items/28436889178606043810624895155">
+            <tbody class="evenRow">
+            <form method="POST" action="/lists/28446230757378923494301852360/items/28446230775825667568011403979">
                 <td>
                     <button type="submit" name="submit"
                             value="Mark Complete"/>
@@ -69,9 +63,14 @@
             <td>2</td>
             <td>WalMart</td>
             <td>INCOMPLETE</td>
+            <form method="POST" action="/lists/28446230757378923494301852360/items/28446230775825667568011403979/delete">
+                <td>
+                    <div class="deleteButton"><INPUT type="submit" name="" value=""></div>
+                </td>
+            </form>
             </tbody>
-            <tbody class="evenRow">
-            <form method="POST" action="/lists/28436889178606043810624895152/items/28436889178606043810624895156">
+            <tbody class="oddRow">
+            <form method="POST" action="/lists/28446230757378923494301852360/items/28446230775825667568011403980">
                 <td>
                     <button type="submit" name="submit"
                             value="Mark Complete"/>
@@ -81,9 +80,14 @@
             <td>3</td>
             <td>WalMart</td>
             <td>INCOMPLETE</td>
+            <form method="POST" action="/lists/28446230757378923494301852360/items/28446230775825667568011403980/delete">
+                <td>
+                    <div class="deleteButton"><INPUT type="submit" name="" value=""></div>
+                </td>
+            </form>
             </tbody>
-            <tbody class="oddRow">
-            <form method="POST" action="/lists/28436889178606043810624895152/items/28436889178606043810624895157">
+            <tbody class="evenRow">
+            <form method="POST" action="/lists/28446230757378923494301852360/items/28446230775825667568011403981">
                 <td>
                     <button type="submit" name="submit"
                             value="Mark Complete"/>
@@ -93,9 +97,14 @@
             <td>3</td>
             <td>WalMart</td>
             <td>INCOMPLETE</td>
+            <form method="POST" action="/lists/28446230757378923494301852360/items/28446230775825667568011403981/delete">
+                <td>
+                    <div class="deleteButton"><INPUT type="submit" name="" value=""></div>
+                </td>
+            </form>
             </tbody>
-            <tbody>
-            <form method="POST" action="/lists/28436889178606043810624895152/items">
+            <tbody class="oddRow">
+            <form method="POST" action="/lists/28446230757378923494301852360/items">
                 <tr>
                     <td/>
                     <td><input type="text" id="name" name="name" value=""/></td>
@@ -110,7 +119,14 @@
             </form>
             </tbody>
         </table>
+
     </div>
+    <form method="POST" action="/lists/28446230757378923494301852360/share">
+        <label>Email: </label><input type="email" id="emailAddress" name="emailAddress" value=""/>
+        <button align="center">
+            Share
+        </button>
+    </form>
     <form method="GET" action="/">
         <button align="center">
             Return
@@ -123,7 +139,7 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="../js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
 <script src="/js/plugins.js"></script>
-<script src="/js/main.js"></script>
+<script src="main.js"></script>
 </body>
 
 </html>
